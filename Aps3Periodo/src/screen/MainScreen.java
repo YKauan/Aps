@@ -22,10 +22,6 @@ import java.awt.Dimension;
 import java.sql.SQLDataException;
 import java.util.ArrayList;
 
-import org.python.util.*;
-
-import org.python.core.*;
-
 public class MainScreen {
 
     private static MainScreen instance;
@@ -34,9 +30,7 @@ public class MainScreen {
 
     private static Table table   = Table.getInstance();
 
-    private static Boolean isSorted = false;
     private static Boolean isBinaryTree = false;
-    private static Boolean isDataLoaded = false;
 
     private Screen screen;
 
@@ -53,9 +47,7 @@ public class MainScreen {
     private JLabel lTotalTime;
     private JLabel lSearchType;
     private JLabel lJava;
-    private JLabel lPython;
     private JLabel lJava2;
-    private JLabel lPython2;
     private JLabel lTextOrd1;
     private JLabel lTextOrd2;
     private JLabel lTextOrd3;
@@ -65,17 +57,10 @@ public class MainScreen {
     private JLabel lResultOrd1Java;
     private JLabel lResultOrd2Java;
     private JLabel lResultOrd3Java;
-    private JLabel lResultOrd1Python;
-    private JLabel lResultOrd2Python;
-    private JLabel lResultOrd3Python;
     private JLabel lResultBusc1Java;
     private JLabel lResultBusc2Java;
     private JLabel lResultBusc3Java;
-    private JLabel lResultBusc1Python;
-    private JLabel lResultBusc2Python;
-    private JLabel lResultBusc3Python;
     
-
     private JButton bOrder;
     private JButton bExit;
     private JButton bLoadData;
@@ -90,7 +75,6 @@ public class MainScreen {
     private JRadioButton rCountryField;
     private JRadioButton rImageCountryField;
     private JRadioButton rJava;
-    private JRadioButton rPython;
     private JRadioButton rBinarySearch;
     private JRadioButton rLinearSearch;
     private JRadioButton rSearchInTree;
@@ -110,12 +94,7 @@ public class MainScreen {
 
     private SpringLayout layout;
 
-    private PythonInterpreter interpreter;
-    private PyObject pyObject;
-
     private JScrollPane js;
-
-    private String value;
 
     private int nopc;
 
@@ -123,22 +102,16 @@ public class MainScreen {
     private long endTime;
 
     private Double totalTimeJava;
-    private Double totalTimePython;
 
     private JTextField tfSearch;
 
     private Color purple = Color.decode("#9400D3");
     private Color red = Color.decode("#FF0000");
-    private Color yellow = Color.decode("#FFFF00");
 
     public MainScreen(){
 
         //=> Instanciando a classe responsavel por definir as propiedades da Frame
         screen = new Screen(1);
-
-        //=> Instanciando o classes do python
-        interpreter = new PythonInterpreter();
-        pyObject = new PyObject();
 
         //=> Instanciando os paineis
         menuPanel = new JPanel();
@@ -169,9 +142,6 @@ public class MainScreen {
         lJava = new JLabel("Java -> ");
         lJava.setForeground(red);
 
-        lPython = new JLabel("Python -> ");
-        lPython.setForeground(yellow);
-
         lTextOrd1 = new JLabel("Bolha");
         lTextOrd1.setForeground(purple);
 
@@ -190,20 +160,8 @@ public class MainScreen {
         lResultOrd3Java = new JLabel("0.0");
         lResultOrd3Java.setForeground(Color.WHITE);
 
-        lResultOrd1Python = new JLabel("0.0");
-        lResultOrd1Python.setForeground(Color.WHITE);
-
-        lResultOrd2Python = new JLabel("0.0");
-        lResultOrd2Python.setForeground(Color.WHITE);
-
-        lResultOrd3Python = new JLabel("0.0");
-        lResultOrd3Python.setForeground(Color.WHITE);
-
         lJava2 = new JLabel("Java -> ");
         lJava2.setForeground(red);
-
-        lPython2 = new JLabel("Python -> ");
-        lPython2.setForeground(yellow);
 
         lTextBusc = new JLabel("Busca Binaria");
         lTextBusc.setForeground(purple);
@@ -220,17 +178,8 @@ public class MainScreen {
         lResultBusc2Java = new JLabel("0.0");
         lResultBusc2Java.setForeground(Color.WHITE);
 
-        lResultBusc1Python = new JLabel("0.0");
-        lResultBusc1Python.setForeground(Color.WHITE);
-        
-        lResultBusc2Python = new JLabel("0.0");
-        lResultBusc2Python.setForeground(Color.WHITE);
-
         lResultBusc3Java = new JLabel("0.0");
         lResultBusc3Java.setForeground(Color.WHITE);
-        
-        lResultBusc3Python = new JLabel("0.0");
-        lResultBusc3Python.setForeground(Color.WHITE);
 
         //=> Instanciando os componentes de botao   
 
@@ -244,11 +193,14 @@ public class MainScreen {
         bLoadData = new JButton("Carregar Dados");
         bLoadData.addActionListener(e -> loadDataButtonAction());
 
-        bSearch = new JButton("Buscar");
+        bSearch = new JButton();
         bSearch.addActionListener(e -> searchButtonAction());
         bSearch.setEnabled(false);
 
+        styles.styleJButtonsSearchButton(bSearch);
         styles.styleJButtonsExitButton(bExit);
+        styles.styleJButtons(bOrder);
+        styles.styleJButtons(bLoadData);
 
         //=> Instanciando os componentes de radio
 
@@ -259,7 +211,6 @@ public class MainScreen {
         rLinearSearch = new JRadioButton("Busca Linear");
         rSearchInTree = new JRadioButton("Busca na Arvore");
         rJava = new JRadioButton("Java");
-        rPython = new JRadioButton("Python");
         rNameField = new JRadioButton("Nome");
         rAgeField = new JRadioButton("Idade");
         rCpfField = new JRadioButton("CPF");
@@ -278,7 +229,6 @@ public class MainScreen {
         styles.styleRadButton(rLinearSearch);
         styles.styleRadButton(rSearchInTree);
         styles.styleRadButton(rJava);
-        styles.styleRadButton(rPython);
         styles.styleRadButton(rNameField);
         styles.styleRadButton(rAgeField);
         styles.styleRadButton(rCpfField);
@@ -302,7 +252,6 @@ public class MainScreen {
         groupOrd.add(rPilha);
 
         groupLang.add(rJava);
-        groupLang.add(rPython);
 
         groupField.add(rNameField);
         groupField.add(rAgeField);
@@ -341,7 +290,6 @@ public class MainScreen {
         menuPanel.add(lSearchType);
         menuPanel.add(lTotalTime);
         menuPanel.add(lJava);
-        menuPanel.add(lPython);
         menuPanel.add(lTextOrd1);
         menuPanel.add(lTextOrd2);
         menuPanel.add(lTextOrd3);
@@ -351,17 +299,10 @@ public class MainScreen {
         menuPanel.add(lResultOrd1Java);
         menuPanel.add(lResultOrd2Java);
         menuPanel.add(lResultOrd3Java);
-        menuPanel.add(lResultOrd1Python);
-        menuPanel.add(lResultOrd2Python);
-        menuPanel.add(lResultOrd3Python);
         menuPanel.add(lJava2);
-        menuPanel.add(lPython2);
         menuPanel.add(lResultBusc1Java);
         menuPanel.add(lResultBusc2Java);
         menuPanel.add(lResultBusc3Java);
-        menuPanel.add(lResultBusc1Python);
-        menuPanel.add(lResultBusc2Python);
-        menuPanel.add(lResultBusc3Python);
         menuPanel.add(bExit);
         menuPanel.add(bOrder);
         menuPanel.add(bLoadData);
@@ -373,7 +314,6 @@ public class MainScreen {
         menuPanel.add(rLinearSearch);
         menuPanel.add(rSearchInTree);
         menuPanel.add(rJava);
-        menuPanel.add(rPython);
         menuPanel.add(rNameField);
         menuPanel.add(rAgeField);
         menuPanel.add(rCpfField);
@@ -396,8 +336,6 @@ public class MainScreen {
         layout.putConstraint(SpringLayout.NORTH , lTotalTime          , 375 , SpringLayout.NORTH , menuPanel);
         layout.putConstraint(SpringLayout.WEST  , lJava               , 015 , SpringLayout.WEST  , menuPanel);
         layout.putConstraint(SpringLayout.NORTH , lJava               , 450 , SpringLayout.NORTH , menuPanel);
-        layout.putConstraint(SpringLayout.WEST  , lPython             , 015 , SpringLayout.WEST  , menuPanel);
-        layout.putConstraint(SpringLayout.NORTH , lPython             , 485 , SpringLayout.NORTH , menuPanel);
         layout.putConstraint(SpringLayout.WEST  , lTextOrd1           , 100 , SpringLayout.WEST  , menuPanel);
         layout.putConstraint(SpringLayout.NORTH , lTextOrd1           , 425 , SpringLayout.NORTH , menuPanel);
         layout.putConstraint(SpringLayout.WEST  , lTextOrd2           , 280 , SpringLayout.WEST  , menuPanel);
@@ -416,28 +354,14 @@ public class MainScreen {
         layout.putConstraint(SpringLayout.NORTH , lResultOrd2Java     , 450 , SpringLayout.NORTH , menuPanel);
         layout.putConstraint(SpringLayout.WEST  , lResultOrd3Java     , 510 , SpringLayout.WEST  , menuPanel);
         layout.putConstraint(SpringLayout.NORTH , lResultOrd3Java     , 450 , SpringLayout.NORTH , menuPanel);
-        layout.putConstraint(SpringLayout.WEST  , lResultOrd1Python   , 100 , SpringLayout.WEST  , menuPanel);
-        layout.putConstraint(SpringLayout.NORTH , lResultOrd1Python   , 485 , SpringLayout.NORTH , menuPanel);
-        layout.putConstraint(SpringLayout.WEST  , lResultOrd2Python   , 280 , SpringLayout.WEST  , menuPanel);
-        layout.putConstraint(SpringLayout.NORTH , lResultOrd2Python   , 485 , SpringLayout.NORTH , menuPanel);
-        layout.putConstraint(SpringLayout.WEST  , lResultOrd3Python   , 510 , SpringLayout.WEST  , menuPanel);
-        layout.putConstraint(SpringLayout.NORTH , lResultOrd3Python   , 485 , SpringLayout.NORTH , menuPanel);
         layout.putConstraint(SpringLayout.WEST  , lJava2              , 015 , SpringLayout.WEST  , menuPanel);
         layout.putConstraint(SpringLayout.NORTH , lJava2              , 535 , SpringLayout.NORTH , menuPanel);
-        layout.putConstraint(SpringLayout.WEST  , lPython2            , 015 , SpringLayout.WEST  , menuPanel);
-        layout.putConstraint(SpringLayout.NORTH , lPython2            , 570 , SpringLayout.NORTH , menuPanel);
         layout.putConstraint(SpringLayout.WEST  , lResultBusc1Java    , 100 , SpringLayout.WEST  , menuPanel);
         layout.putConstraint(SpringLayout.NORTH , lResultBusc1Java    , 535 , SpringLayout.NORTH , menuPanel);
         layout.putConstraint(SpringLayout.WEST  , lResultBusc2Java    , 280 , SpringLayout.WEST  , menuPanel);
         layout.putConstraint(SpringLayout.NORTH , lResultBusc2Java    , 535 , SpringLayout.NORTH , menuPanel);
         layout.putConstraint(SpringLayout.WEST  , lResultBusc3Java    , 510 , SpringLayout.WEST  , menuPanel);
         layout.putConstraint(SpringLayout.NORTH , lResultBusc3Java    , 535 , SpringLayout.NORTH , menuPanel);
-        layout.putConstraint(SpringLayout.WEST  , lResultBusc1Python  , 100 , SpringLayout.WEST  , menuPanel);
-        layout.putConstraint(SpringLayout.NORTH , lResultBusc1Python  , 570 , SpringLayout.NORTH , menuPanel);
-        layout.putConstraint(SpringLayout.WEST  , lResultBusc2Python  , 280 , SpringLayout.WEST  , menuPanel);
-        layout.putConstraint(SpringLayout.NORTH , lResultBusc2Python  , 570 , SpringLayout.NORTH , menuPanel);
-        layout.putConstraint(SpringLayout.WEST  , lResultBusc3Python  , 510 , SpringLayout.WEST  , menuPanel);
-        layout.putConstraint(SpringLayout.NORTH , lResultBusc3Python  , 570 , SpringLayout.NORTH , menuPanel);
 
         layout.putConstraint(SpringLayout.WEST  , bExit               , 700 , SpringLayout.WEST  , menuPanel);
         layout.putConstraint(SpringLayout.NORTH , bExit               , 010 , SpringLayout.NORTH , menuPanel);
@@ -464,8 +388,6 @@ public class MainScreen {
         layout.putConstraint(SpringLayout.NORTH , rBinarySearch       , 170 , SpringLayout.NORTH , menuPanel);
         layout.putConstraint(SpringLayout.WEST  , rJava               , 030 , SpringLayout.WEST  , menuPanel);
         layout.putConstraint(SpringLayout.NORTH , rJava               , 335 , SpringLayout.NORTH , menuPanel);
-        layout.putConstraint(SpringLayout.WEST  , rPython             , 100 , SpringLayout.WEST  , menuPanel);
-        layout.putConstraint(SpringLayout.NORTH , rPython             , 335 , SpringLayout.NORTH , menuPanel);
         layout.putConstraint(SpringLayout.WEST  , rNameField          , 030 , SpringLayout.WEST  , menuPanel);
         layout.putConstraint(SpringLayout.NORTH , rNameField          , 255 , SpringLayout.NORTH , menuPanel);
         layout.putConstraint(SpringLayout.WEST  , rAgeField           , 100 , SpringLayout.WEST  , menuPanel);
@@ -487,7 +409,6 @@ public class MainScreen {
         screen.dispose();
     }
 
-
     //=> Metodo responsavel por ordenar os dados
     public void orderButtonAction() {
 
@@ -495,117 +416,56 @@ public class MainScreen {
 
         ordenaJava = new Ordena();
 
-        if(rJava.isSelected()){
+        if(rBubbleSort.isSelected()){
 
-            if(rBubbleSort.isSelected()){
+            validateOpc();
 
-                validateOpc();
+            startTime = System.nanoTime();
+            newArr =  ordenaJava.bubbleSort(arrName, arrAge, arrCpf, arrCountry, arrImageCountry, nopc);
+            endTime = System.nanoTime();                
 
-                startTime = System.nanoTime();
-                newArr =  ordenaJava.bubbleSort(arrName, arrAge, arrCpf, arrCountry, arrImageCountry, nopc);
-                endTime = System.nanoTime();                
- 
-                totalTimeJava = (endTime - startTime) / 1e9;
+            totalTimeJava = (endTime - startTime) / 1e9;
 
-                lResultOrd1Java.setText(String.valueOf(totalTimeJava));
+            lResultOrd1Java.setText(String.valueOf(totalTimeJava));
 
-                isBinaryTree = false;
+            isBinaryTree = false;
 
-            } else if(rBinaryTree.isSelected()){
+        } else if(rBinaryTree.isSelected()){
 
-                validateOpc();
+            validateOpc();
 
-                startTime = System.nanoTime();
-                newArr = ordenaJava.binaryTree(arrName, arrAge, arrCpf, arrCountry, arrImageCountry, nopc);
-                endTime = System.nanoTime();
+            startTime = System.nanoTime();
+            newArr = ordenaJava.binaryTree(arrName, arrAge, arrCpf, arrCountry, arrImageCountry, nopc);
+            endTime = System.nanoTime();
 
-                totalTimeJava = (endTime - startTime) / 1e9;
+            totalTimeJava = (endTime - startTime) / 1e9;
 
-                lResultOrd2Java.setText(String.valueOf(totalTimeJava));
+            lResultOrd2Java.setText(String.valueOf(totalTimeJava));
 
-                isBinaryTree = true;
+            isBinaryTree = true;
 
-            } else if(rPilha.isSelected()){
+        } else if(rPilha.isSelected()){
 
-                isBinaryTree = false;
+            isBinaryTree = false;
 
-            }
+        }
 
-            if (newArr != null){
-                    
-                    @SuppressWarnings ("unchecked")
-                    ArrayList<String> nameArr = new ArrayList<String>((ArrayList<String>) newArr.get(0));
-                    @SuppressWarnings ("unchecked")
-                    ArrayList<Integer> ageArr = new ArrayList<Integer>((ArrayList<Integer>) newArr.get(1));
-                    @SuppressWarnings ("unchecked")
-                    ArrayList<String> cpfArr = new ArrayList<String>((ArrayList<String>) newArr.get(2));
-                    @SuppressWarnings ("unchecked")
-                    ArrayList<String> countryArr = new ArrayList<String>((ArrayList<String>) newArr.get(3));
+        if (newArr != null){
+                
+            @SuppressWarnings ("unchecked")
+            ArrayList<String> nameArr = new ArrayList<String>((ArrayList<String>) newArr.get(0));
+            @SuppressWarnings ("unchecked")
+            ArrayList<Integer> ageArr = new ArrayList<Integer>((ArrayList<Integer>) newArr.get(1));
+            @SuppressWarnings ("unchecked")
+            ArrayList<String> cpfArr = new ArrayList<String>((ArrayList<String>) newArr.get(2));
+            @SuppressWarnings ("unchecked")
+            ArrayList<String> countryArr = new ArrayList<String>((ArrayList<String>) newArr.get(3));
 
-                    table.updateTableData(nameArr, ageArr, cpfArr, countryArr);
+            table.updateTableData(nameArr, ageArr, cpfArr, countryArr);
 
-                    clearArraysLists(0);
+            clearArraysLists(0);
 
-                    bOrder.setEnabled(false);
-
-                }
-
-        } else if(rPython.isSelected()){
-
-            if(rBubbleSort.isSelected()){
-
-                ArrayList<Object> arrPy = new ArrayList<Object>();
-
-                arrPy.add(arrName);
-                arrPy.add(arrAge);
-                arrPy.add(arrCpf);
-                arrPy.add(arrCountry);
-                arrPy.add(arrImageCountry);
-
-                validateOpc();
-
-                interpreter.set("dados", arrPy);
-                interpreter.set("nopc", nopc);
-
-                interpreter.execfile("src/functions/python/ordena.py");
-                pyObject = interpreter.get("rBubbleSort");
-
-                PyObject result = pyObject.__call__(interpreter.get("dados"), interpreter.get("nopc"));
-
-                Object[] sortedArray = (Object[]) result.__tojava__(Object[].class);
-
-                pyObject = interpreter.get("totalTimeFunc");
-
-                PyObject resultTotalTime = pyObject.__call__();
-
-                totalTimePython = (Double) resultTotalTime.__tojava__(Double.class);
-
-                lResultOrd1Python.setText(String.valueOf(totalTimePython));
-
-                if (sortedArray != null){
-                    
-                    @SuppressWarnings ("unchecked")
-                    ArrayList<String> nameArr = new ArrayList<String>((ArrayList<String>) sortedArray[0]);
-                    @SuppressWarnings ("unchecked")
-                    ArrayList<Integer> ageArr = new ArrayList<Integer>((ArrayList<Integer>) sortedArray[1]);
-                    @SuppressWarnings ("unchecked")
-                    ArrayList<String> cpfArr = new ArrayList<String>((ArrayList<String>) sortedArray[2]);
-                    @SuppressWarnings ("unchecked")
-                    ArrayList<String> countryArr = new ArrayList<String>((ArrayList<String>) sortedArray[3]);
-
-                    table.updateTableData(nameArr, ageArr, cpfArr, countryArr);
-
-                    clearArraysLists(0);
-
-                    bOrder.setEnabled(false);
-
-                }
-
-            } else if(rBinaryTree.isSelected()){
-
-            } else if(rPilha.isSelected()){
-
-            }
+            bOrder.setEnabled(false);
 
         }
 
@@ -618,99 +478,42 @@ public class MainScreen {
 
         search = new Buscas();
 
-        if(rJava.isSelected()){
-                
-            if(rBinarySearch.isSelected()){
+        if(rBinarySearch.isSelected()){
 
-                startTime = System.nanoTime();
-                search.buscaBinaria(validadeArrSelectedField(), tfSearch.getText());
-                endTime = System.nanoTime();
+            startTime = System.nanoTime();
+            search.buscaBinaria(validadeArrSelectedField(), tfSearch.getText());
+            endTime = System.nanoTime();
 
-            } else if(rLinearSearch.isSelected()){
+        } else if(rLinearSearch.isSelected()){
 
-                startTime = System.nanoTime();
-                search.buscaLinear(validadeArrSelectedField(), tfSearch.getText());
-                endTime = System.nanoTime();
+            startTime = System.nanoTime();
+            search.buscaLinear(validadeArrSelectedField(), tfSearch.getText());
+            endTime = System.nanoTime();
 
-            }else if(rBinaryTree.isSelected()){
+        }else if(rBinaryTree.isSelected()){
 
-                if(!isBinaryTree){
-                    JOptionPane.showMessageDialog(null, "É necessário ordenar por Arvore Binaria antes de realizar a busca na árvore!", "Busca na Árvore", JOptionPane.INFORMATION_MESSAGE);
-                }else{
-
-                    validateOpc();
-
-                    startTime = System.nanoTime();
-                    ordenaJava.searchInTree(tfSearch.getText(), nopc);
-                    endTime = System.nanoTime();
-
-                }
-
-            }
-
-            totalTimeJava = (endTime - startTime) / 1e9;
-
-            if(rBinarySearch.isSelected()){
-                lResultBusc1Java.setText(String.valueOf(totalTimeJava));
-            }else if(rLinearSearch.isSelected()){
-               lResultBusc2Java.setText(String.valueOf(totalTimeJava));
-            }else if(rSearchInTree.isSelected()){
-                lResultBusc3Java.setText(String.valueOf(totalTimeJava));
-            }
-
-        } else {
-
-            if(rBinarySearch.isSelected()){
-
-                executPy("binarySearch");
-
+            if(!isBinaryTree){
+                JOptionPane.showMessageDialog(null, "É necessário ordenar por Arvore Binaria antes de realizar a busca na árvore!", "Busca na Árvore", JOptionPane.INFORMATION_MESSAGE);
             }else{
 
-                executPy("linearSearch");
+                validateOpc();
+
+                startTime = System.nanoTime();
+                ordenaJava.searchInTree(tfSearch.getText(), nopc);
+                endTime = System.nanoTime();
 
             }
-            
+
         }
 
-    }
+        totalTimeJava = (endTime - startTime) / 1e9;
 
-    public void executPy(String functionName){
-
-        value = tfSearch.getText();
-
-        validateArraysSelectedFieldPy();
-
-        interpreter.set("search", value);
-
-        interpreter.execfile("src/functions/python/buscas.py");
-        pyObject = interpreter.get(functionName);
-
-        PyObject result = pyObject.__call__(interpreter.get("arr"), interpreter.get("search"));
-
-        String found = (String) result.__tojava__(String.class);
-
-        pyObject = interpreter.get("totalTimeFunc");
-
-        PyObject resultTotalTime = pyObject.__call__();
-
-        totalTimePython = (Double) resultTotalTime.__tojava__(Double.class);
-
-        if(functionName.equals("binarySearch")){
-
-            lResultBusc1Python.setText(String.valueOf(totalTimePython));
-        } else {
-
-            lResultBusc2Python.setText(String.valueOf(totalTimePython));
-        }
-
-        if(found != ""){
-
-            JOptionPane.showMessageDialog(null, "O nome " + found + " foi encontrado!", "Busca Linear", JOptionPane.INFORMATION_MESSAGE);       
-
-        }else{
-
-            JOptionPane.showMessageDialog(null, "O nome " + tfSearch.getText() + " não foi encontrado!", "Busca Linear", JOptionPane.INFORMATION_MESSAGE);       
-
+        if(rBinarySearch.isSelected()){
+            lResultBusc1Java.setText(String.valueOf(totalTimeJava));
+        }else if(rLinearSearch.isSelected()){
+            lResultBusc2Java.setText(String.valueOf(totalTimeJava));
+        }else if(rSearchInTree.isSelected()){
+            lResultBusc3Java.setText(String.valueOf(totalTimeJava));
         }
 
     }
@@ -768,24 +571,16 @@ public class MainScreen {
         }
 
     }
-
+    //=> Metodo responsavel por validar as cores dos labels
     public void validateColorsByTime(){
 
         Double result1Java =       Double.parseDouble(lResultOrd1Java.getText());
         Double result2Java =       Double.parseDouble(lResultOrd2Java.getText());
         Double result3Java =       Double.parseDouble(lResultOrd3Java.getText());
         
-        Double result1Python =     Double.parseDouble(lResultOrd1Python.getText());
-        Double result2Python =     Double.parseDouble(lResultOrd2Python.getText());
-        Double result3Python =     Double.parseDouble(lResultOrd3Python.getText());
-        
         Double result1BuscJava =   Double.parseDouble(lResultBusc1Java.getText());
         Double result2BuscJava =   Double.parseDouble(lResultBusc2Java.getText());
         Double result3BuscJava =   Double.parseDouble(lResultBusc3Java.getText());
-
-        Double result1BuscPython = Double.parseDouble(lResultBusc1Python.getText());
-        Double result2BuscPython = Double.parseDouble(lResultBusc2Python.getText());
-        Double result3BuscPython = Double.parseDouble(lResultBusc3Python.getText());
 
         if(result1Java > result2Java && result1Java > result3Java){
 
@@ -821,45 +616,6 @@ public class MainScreen {
             } else {
                 lResultOrd1Java.setForeground(Color.RED);
                 lResultOrd2Java.setForeground(Color.YELLOW);
-            }
-
-        }
-
-
-        if(result1Python > result2Python && result1Python > result3Python){
-
-            lResultOrd1Python.setForeground(Color.GREEN);
-
-            if(result2Python > result3Python){
-                lResultOrd2Python.setForeground(Color.YELLOW);
-                lResultOrd3Python.setForeground(Color.RED);
-            } else {
-                lResultOrd2Python.setForeground(Color.RED);
-                lResultOrd3Python.setForeground(Color.YELLOW);
-            }
-
-        } else if (result2Python > result1Python && result2Python > result3Python){
-
-            lResultOrd2Python.setForeground(Color.GREEN);
-
-            if(result1Python > result3Python){
-                lResultOrd1Python.setForeground(Color.YELLOW);
-                lResultOrd3Python.setForeground(Color.RED);
-            } else {
-                lResultOrd1Python.setForeground(Color.RED);
-                lResultOrd3Python.setForeground(Color.YELLOW);
-            }
-
-        } else {
-            
-            lResultOrd3Python.setForeground(Color.GREEN);
-
-            if(result1Python > result2Python){
-                lResultOrd1Python.setForeground(Color.YELLOW);
-                lResultOrd2Python.setForeground(Color.RED);
-            } else {
-                lResultOrd1Python.setForeground(Color.RED);
-                lResultOrd2Python.setForeground(Color.YELLOW);
             }
 
         }
@@ -901,49 +657,9 @@ public class MainScreen {
             }
 
         }
-
-        if(result1BuscPython > result2BuscPython && result1BuscPython > result3BuscPython){
-
-            lResultBusc1Python.setForeground(Color.GREEN);
-
-            if(result2BuscPython > result3BuscPython){
-                lResultBusc2Python.setForeground(Color.YELLOW);
-                lResultBusc3Python.setForeground(Color.RED);
-            } else {
-                lResultBusc2Python.setForeground(Color.RED);
-                lResultBusc3Python.setForeground(Color.YELLOW);
-            }
-
-        } else if (result2BuscPython > result1BuscPython && result2BuscPython > result3BuscPython){
-
-            lResultBusc2Python.setForeground(Color.GREEN);
-
-            if(result1BuscPython > result3BuscPython){
-                lResultBusc1Python.setForeground(Color.YELLOW);
-                lResultBusc3Python.setForeground(Color.RED);
-            } else {
-                lResultBusc1Python.setForeground(Color.RED);
-                lResultBusc3Python.setForeground(Color.YELLOW);
-            }
-
-        } else {
-            
-            lResultBusc3Python.setForeground(Color.GREEN);
-
-            if(result1BuscPython > result2BuscPython){
-                lResultBusc1Python.setForeground(Color.YELLOW);
-                lResultBusc2Python.setForeground(Color.RED);
-            } else {
-                lResultBusc1Python.setForeground(Color.RED);
-                lResultBusc2Python.setForeground(Color.YELLOW);
-            }
-
-        }
-
-        
         
     }
-
+    //=> Metodo responsavel por validar os radios buttons
     public void validateRadiosButton(){
 
         if(rBinaryTree.isSelected()){
@@ -963,7 +679,7 @@ public class MainScreen {
         }
 
     }
-
+    //=> Metodo responsavel por validar a opcao selecionada
     public void validateOpc(){
 
         nopc = 0;
@@ -992,7 +708,7 @@ public class MainScreen {
         }
 
     }
-
+    //=> Metodo responsavel por validar o campo selecionado
     public ArrayList<?> validadeArrSelectedField(){
 
         ArrayList<?> arr = new ArrayList<>();
@@ -1021,32 +737,7 @@ public class MainScreen {
         return arr;
 
     }
-
-    public void validateArraysSelectedFieldPy(){
-
-        if(rNameField.isSelected()){
-
-            interpreter.set("arr", arrName);
-
-        }else if(rAgeField.isSelected()){
-
-            interpreter.set("arr", arrAge);
-
-        }else if(rCpfField.isSelected()){
-
-            interpreter.set("arr", arrCpf);
-
-        }else if(rCountryField.isSelected()){
-
-            interpreter.set("arr", arrCountry);
-
-        }else if(rImageCountryField.isSelected()){
-
-            interpreter.set("arr", arrImageCountry);
-        }
-
-    }
-
+    
     //=> Metodo responsavel por retornar a instancia da minha classe
     public static MainScreen getInstance() {
         if (instance == null) {

@@ -11,6 +11,8 @@ import javax.swing.JRadioButton;
 
 public class Styles {
 
+    private Color purpleSt = Color.decode("#9400D3");
+
     //=> Metodo responsavel por definir os estilos dos meus JButtons exit Button
     public void styleJButtonsExitButton(JButton button) {
 
@@ -20,6 +22,30 @@ public class Styles {
         button.setOpaque(true);
         button.setFocusPainted(false);
         button.setContentAreaFilled(false);
+
+    }
+
+    //=> Metodo responsavel por definir os estilos dos meus JButtons Pesquisa Button
+    public void styleJButtonsSearchButton(JButton button) {
+
+        button.setIcon(new ImageIcon("./src/images/lupa.png"));
+        button.setBorder(null);
+        button.setBorderPainted(false);
+        button.setOpaque(true);
+        button.setFocusPainted(false);
+        button.setContentAreaFilled(false);
+
+    }
+
+    //=> Metodo responsavel por definir os estilos dos meus JButtons
+    public void styleJButtons(JButton button) {
+
+        //button.setBorder(null);
+        //button.setContentAreaFilled(false);
+        button.setBackground(purpleSt);
+        button.setForeground(Color.WHITE);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
 
     }
 

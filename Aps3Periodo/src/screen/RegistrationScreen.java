@@ -159,6 +159,7 @@ public class RegistrationScreen {
         styles = new Styles();
  
         styles.styleJButtonsExitButton(bExit);
+        styles.styleJButtons(bSave);
  
         panel.add(tCurrentName);
         panel.add(tCurrentAge);
@@ -376,9 +377,6 @@ public class RegistrationScreen {
         }else {
             delete(currentImage);
         }
-
-        MainScreen ms = MainScreen.getInstance();
-        ms.loadDataButtonAction();
 
         screen.dispose();
 
