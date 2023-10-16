@@ -425,6 +425,8 @@ public class MainScreen {
             endTime = System.nanoTime();                
 
             totalTimeJava = (endTime - startTime) / 1e9;
+            System.out.println(endTime);
+            System.out.println(startTime);
 
             lResultOrd1Java.setText(String.valueOf(totalTimeJava));
 
