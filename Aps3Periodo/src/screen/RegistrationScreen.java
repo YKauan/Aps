@@ -91,7 +91,7 @@ public class RegistrationScreen {
         panel.setLayout(layout);
 
         lImage = new JLabel();
-        lImage.setIcon(currentImage);
+        styles.styleImageLabel(lImage, currentImage);
         lImage.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 loadImage();
@@ -397,10 +397,12 @@ public class RegistrationScreen {
         FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & PNG Images", "jpg", "png");
         chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(screen);
+
         if(returnVal == JFileChooser.APPROVE_OPTION) {
             ImageIcon imgIcon = new ImageIcon(chooser.getSelectedFile().getAbsolutePath());
-            lImage.setIcon(new ImageIcon(imgIcon.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
+            styles.styleImageLabel(lImage, imgIcon);
             lImage.repaint();
+            currentImage = imgIcon;
             return imgIcon;
         }
 

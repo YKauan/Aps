@@ -70,11 +70,9 @@ public class Styles {
     }
 
     //=> Metodo responsavel por definir o estilo do Label de imagem
-    public void styleImageLabel(JLabel label, String fileName) {
-
-        ImageIcon image = new ImageIcon(fileName);
+    public void styleImageLabel(JLabel label, ImageIcon file) {
         
-        Image selectedImage = image.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+        Image selectedImage = file.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
 
         label.setIcon(new ImageIcon(selectedImage));
 
