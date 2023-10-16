@@ -242,6 +242,10 @@ public class Ordena {
 
     }
 
+    public ArrayList<Object> pilha(ArrayList<String> arrName, ArrayList<Integer> arrAge, ArrayList<String> arrCpf, ArrayList<String> arrCountry, ArrayList<byte[]> arrImageCountry, int opc){
+        return null;
+    }
+
     public void searchInTree(String search, int opc){
 
         BinaryTreeSort bin = BinaryTreeSort.getInstance();
@@ -260,7 +264,6 @@ public class Ordena {
     }
 
 }
-
 
 class TreeNode {
 
@@ -282,7 +285,6 @@ class TreeNode {
         this.right = null;
     }
 }
-
 
 class BinaryTreeSort {
 
@@ -522,5 +524,22 @@ class BinaryTreeSort {
         }
         return instance;
     }
+
+}
+
+class Pilha {
+
+    int tamanho;
+    int topo;
+    ArrayList<String> arrName;
+    ArrayList<Integer> arrAge;
+    ArrayList<String> arrCpf;
+    ArrayList<String> arrCountry;
+    ArrayList<byte[]> arrImageCountry;
+
+    Pilha(int tam) {
+        topo = tam;
+        tamanho = tam;
+    } 
 
 }

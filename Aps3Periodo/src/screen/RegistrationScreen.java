@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -12,11 +13,13 @@ import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import src.database.classesdao.ApsDAO;
 import src.styles.Styles;
@@ -89,6 +92,11 @@ public class RegistrationScreen {
 
         lImage = new JLabel();
         lImage.setIcon(currentImage);
+        lImage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                loadImage();
+            }
+        });
  
         bExit = new JButton();
         bExit.addActionListener(e -> exitButtonAction());
@@ -183,6 +191,7 @@ public class RegistrationScreen {
         panel.add(rbInsert);
         panel.add(rbDelete);
         panel.add(bSave);
+        panel.add(bExit);
  
         layout.putConstraint(SpringLayout.WEST  , bExit                , 810 , SpringLayout.WEST  , panel);
         layout.putConstraint(SpringLayout.NORTH , bExit                , 010 , SpringLayout.NORTH , panel);
@@ -308,7 +317,6 @@ public class RegistrationScreen {
 
     }
 
-
     //=> Metodo responsavel por inserir os dados no DB
     public void insert(ImageIcon image){
 
@@ -379,6 +387,24 @@ public class RegistrationScreen {
         }
 
         screen.dispose();
+
+    }
+
+    //=> Metodo responsavel por carregar a nova imagem
+    public ImageIcon loadImage(){
+
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & PNG Images", "jpg", "png");
+        chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(screen);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+            ImageIcon imgIcon = new ImageIcon(chooser.getSelectedFile().getAbsolutePath());
+            lImage.setIcon(new ImageIcon(imgIcon.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH)));
+            lImage.repaint();
+            return imgIcon;
+        }
+
+        return null;
 
     }
 
