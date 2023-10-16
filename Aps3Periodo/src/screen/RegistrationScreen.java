@@ -3,6 +3,8 @@ package src.screen;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -92,9 +94,11 @@ public class RegistrationScreen {
 
         lImage = new JLabel();
         styles.styleImageLabel(lImage, currentImage);
-        lImage.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                loadImage();
+        lImage.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                if(rbInsert.isSelected() || rbAlter.isSelected()){
+                    loadImage();
+                }
             }
         });
  
