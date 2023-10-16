@@ -147,7 +147,8 @@ public class Table extends JTable {
 
             ImageIcon image = getSelectedImage();
 
-            new RegistrationScreen(lineArr.get(0), lineArr.get(1), lineArr.get(2), lineArr.get(3), image);
+            if (RegistrationScreen.isOpen == false)
+                new RegistrationScreen(lineArr.get(0), lineArr.get(1), lineArr.get(2), lineArr.get(3), image);
 
         }
         

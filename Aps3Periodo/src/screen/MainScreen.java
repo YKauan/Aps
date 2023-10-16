@@ -32,7 +32,7 @@ public class MainScreen {
 
     private static Boolean isBinaryTree = false;
 
-    private Screen screen;
+    public Screen screen;
 
     private Ordena ordenaJava;
     private Buscas search;
@@ -264,7 +264,7 @@ public class MainScreen {
         groupSearch.add(rSearchInTree);
 
         //=> Instanciando o campo de texto
-        tfSearch = new JTextField(10);
+        tfSearch = new JTextField(15);
 
         //=> Instanciando o layout
         layout = new SpringLayout();
@@ -369,7 +369,7 @@ public class MainScreen {
         layout.putConstraint(SpringLayout.NORTH , bOrder              ,  80 , SpringLayout.NORTH , menuPanel);
         layout.putConstraint(SpringLayout.WEST  , bLoadData           , 500 , SpringLayout.WEST  , menuPanel);
         layout.putConstraint(SpringLayout.NORTH , bLoadData           ,  80 , SpringLayout.NORTH , menuPanel);
-        layout.putConstraint(SpringLayout.WEST  , bSearch             , 650 , SpringLayout.WEST  , menuPanel);
+        layout.putConstraint(SpringLayout.WEST  , bSearch             , 700 , SpringLayout.WEST  , menuPanel);
         layout.putConstraint(SpringLayout.NORTH , bSearch             , 120 , SpringLayout.NORTH , menuPanel);
         layout.putConstraint(SpringLayout.WEST  , tfSearch            , 500 , SpringLayout.WEST  , menuPanel);
         layout.putConstraint(SpringLayout.NORTH , tfSearch            , 125 , SpringLayout.NORTH , menuPanel);
@@ -571,6 +571,7 @@ public class MainScreen {
         }
 
     }
+    
     //=> Metodo responsavel por validar as cores dos labels
     public void validateColorsByTime(){
 
@@ -659,6 +660,7 @@ public class MainScreen {
         }
         
     }
+    
     //=> Metodo responsavel por validar os radios buttons
     public void validateRadiosButton(){
 
@@ -679,6 +681,7 @@ public class MainScreen {
         }
 
     }
+    
     //=> Metodo responsavel por validar a opcao selecionada
     public void validateOpc(){
 
@@ -708,6 +711,7 @@ public class MainScreen {
         }
 
     }
+    
     //=> Metodo responsavel por validar o campo selecionado
     public ArrayList<?> validadeArrSelectedField(){
 
@@ -737,7 +741,7 @@ public class MainScreen {
         return arr;
 
     }
-    
+
     //=> Metodo responsavel por retornar a instancia da minha classe
     public static MainScreen getInstance() {
         if (instance == null) {

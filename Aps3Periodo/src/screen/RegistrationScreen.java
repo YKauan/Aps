@@ -7,7 +7,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -15,6 +14,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,7 +26,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import src.database.classesdao.ApsDAO;
 import src.styles.Styles;
 
-public class RegistrationScreen {
+public class RegistrationScreen extends JDialog{
     
     private Screen screen;
 
@@ -74,13 +74,16 @@ public class RegistrationScreen {
 
     private static ApsDAO apsDAO = ApsDAO.getInstance();
 
-    public RegistrationScreen(String currentName, String currentAge, String currentCpf, String currentCountry, ImageIcon currentImage) {
+    public static Boolean isOpen = false;
 
+    public RegistrationScreen(String currentName, String currentAge, String currentCpf, String currentCountry, ImageIcon currentImage) {
         this.currentName    = currentName;
         this.currentAge     = currentAge;
         this.currentCpf     = currentCpf;
         this.currentCountry = currentCountry;
         this.currentImage   = currentImage;
+
+        isOpen = true;
 
         screen = new Screen(0);
 
@@ -245,12 +248,14 @@ public class RegistrationScreen {
         layout.putConstraint(SpringLayout.NORTH , lNewCpf             , 255 , SpringLayout.NORTH , panel);
         layout.putConstraint(SpringLayout.WEST  , lNewCountry         , 300 , SpringLayout.WEST  , panel);
         layout.putConstraint(SpringLayout.NORTH , lNewCountry         , 330 , SpringLayout.NORTH , panel);
- 
+
         screen.add(panel);
+        setModal(true);
     }
 
     //=> Metodo rsponsavel por fechar a tela
     public void exitButtonAction() {
+        isOpen = false;
         screen.dispose();
     }
 
