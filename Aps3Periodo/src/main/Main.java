@@ -10,7 +10,7 @@ public class Main {
         
         SwingUtilities.invokeLater(() -> {
 
-            new MainScreen();
+            MainScreen.getInstance();
 
         });
 

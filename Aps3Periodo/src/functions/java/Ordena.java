@@ -2,10 +2,12 @@ package src.functions.java;
 
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class Ordena {
     
+    //=> Metodo responsavel por ordenar os arrays com ordenacao bolha
     public ArrayList<Object> bubbleSort(ArrayList<String> arrName, ArrayList<Integer> arrAge, ArrayList<String> arrCpf, ArrayList<String> arrCountry, ArrayList<byte[]> arrImageCountry, int opc){
 
         int n = arrAge.size();
@@ -230,11 +232,279 @@ public class Ordena {
 
     }
 
-    public ArrayList<Object> binaryTree(ArrayList<String> arrName, ArrayList<Integer> arrAge, ArrayList<String> arrCpf, ArrayList<String> arrCountry, ArrayList<byte[]> arrImageCountry, int opc){
+    //=> Metodo responsavel por ordenar os arrays com ordenacao QuickSort
+    public ArrayList<Object> quickSort(ArrayList<String> arrName, ArrayList<Integer> arrAge, ArrayList<String> arrCpf, ArrayList<String> arrCountry, ArrayList<byte[]> arrImageCountry, int nopc, int left, int right){
+        
+        ArrayList<Object> arr = new ArrayList<Object>();
 
-        BinaryTreeSort bin = BinaryTreeSort.getInstance();
+        int intAux = 0;
+        int intPivot = 0;
 
-        bin.binaryTreeSort(arrName, arrAge, arrCpf, arrCountry, arrImageCountry, opc);
+        int lft = left;
+        int rgt = right;
+
+        String strPivot = arrName.get((lft + rgt) / 2);
+        String strAux = "";
+        
+        
+        if( nopc == 0) {
+            
+            strPivot = arrName.get((lft + rgt) / 2);
+            
+            while( lft <= rgt ) {
+
+                while(arrName.get(lft).compareToIgnoreCase(strPivot) < 0){
+                    lft++;
+                }
+                while(arrName.get(rgt).compareToIgnoreCase(strPivot) > 0){
+                    rgt--;
+                }
+
+                if(lft <= rgt){
+                    strAux = arrName.get(lft);
+                    arrName.set(lft, arrName.get(rgt));
+                    arrName.set(rgt, strAux);
+
+                    intAux = arrAge.get(lft);
+                    arrAge.set(lft, arrAge.get(rgt));
+                    arrAge.set(rgt, intAux);
+
+                    strAux = arrCpf.get(lft);
+                    arrCpf.set(lft, arrCpf.get(rgt));
+                    arrCpf.set(rgt, strAux);
+
+                    strAux = arrCountry.get(lft);
+                    arrCountry.set(lft, arrCountry.get(rgt));
+                    arrCountry.set(rgt, strAux);
+
+                    byte[] byteAux = arrImageCountry.get(lft);
+                    arrImageCountry.set(lft, arrImageCountry.get(rgt));
+                    arrImageCountry.set(rgt, byteAux);
+
+                    lft++;
+                    rgt--;
+                }
+            }
+
+            if(rgt > left){
+                quickSort(arrName, arrAge, arrCpf, arrCountry, arrImageCountry, nopc, left, rgt);
+            }
+
+            if(lft < right){
+                quickSort(arrName, arrAge, arrCpf, arrCountry, arrImageCountry, nopc, lft, right);
+            }
+
+        } else if( nopc ==1 ) {
+
+            intPivot = arrAge.get((lft + rgt) / 2);
+
+            while( lft <= rgt ) {
+
+                while(arrAge.get(lft) < intPivot){
+                    lft++;
+                }
+                while(arrAge.get(rgt) > intPivot){
+                    rgt--;
+                }
+
+                if(lft <= rgt){
+                    strAux = arrName.get(lft);
+                    arrName.set(lft, arrName.get(rgt));
+                    arrName.set(rgt, strAux);
+
+                    intAux = arrAge.get(lft);
+                    arrAge.set(lft, arrAge.get(rgt));
+                    arrAge.set(rgt, intAux);
+
+                    strAux = arrCpf.get(lft);
+                    arrCpf.set(lft, arrCpf.get(rgt));
+                    arrCpf.set(rgt, strAux);
+
+                    strAux = arrCountry.get(lft);
+                    arrCountry.set(lft, arrCountry.get(rgt));
+                    arrCountry.set(rgt, strAux);
+
+                    byte[] byteAux = arrImageCountry.get(lft);
+                    arrImageCountry.set(lft, arrImageCountry.get(rgt));
+                    arrImageCountry.set(rgt, byteAux);
+
+                    lft++;
+                    rgt--;
+                }
+
+            }
+
+            if(rgt > left){
+                quickSort(arrName, arrAge, arrCpf, arrCountry, arrImageCountry, nopc, left, rgt);
+            }
+
+            if(lft < right){
+                quickSort(arrName, arrAge, arrCpf, arrCountry, arrImageCountry, nopc, lft, right);
+            }
+
+        } else if ( nopc == 2 ) {
+
+            strPivot = arrCpf.get((lft + rgt) / 2);
+
+            while ( lft <= rgt ) {
+
+                while(arrCpf.get(lft).compareToIgnoreCase(strPivot) < 0){
+                    lft++;
+                }
+                while(arrCpf.get(rgt).compareToIgnoreCase(strPivot) > 0){
+                    rgt--;
+                }
+
+                if(lft <= rgt){
+                    strAux = arrName.get(lft);
+                    arrName.set(lft, arrName.get(rgt));
+                    arrName.set(rgt, strAux);
+
+                    intAux = arrAge.get(lft);
+                    arrAge.set(lft, arrAge.get(rgt));
+                    arrAge.set(rgt, intAux);
+
+                    strAux = arrCpf.get(lft);
+                    arrCpf.set(lft, arrCpf.get(rgt));
+                    arrCpf.set(rgt, strAux);
+
+                    strAux = arrCountry.get(lft);
+                    arrCountry.set(lft, arrCountry.get(rgt));
+                    arrCountry.set(rgt, strAux);
+
+                    byte[] byteAux = arrImageCountry.get(lft);
+                    arrImageCountry.set(lft, arrImageCountry.get(rgt));
+                    arrImageCountry.set(rgt, byteAux);
+
+                    lft++;
+                    rgt--;
+                }
+
+            }
+
+            if(rgt > left){
+                quickSort(arrName, arrAge, arrCpf, arrCountry, arrImageCountry, nopc, left, rgt);
+            }
+
+            if(lft < right){
+                quickSort(arrName, arrAge, arrCpf, arrCountry, arrImageCountry, nopc, lft, right);
+            }
+
+        } else if ( nopc == 3 ) {
+
+            strPivot = arrCountry.get((lft + rgt) / 2);
+
+            while ( lft <= rgt ) {
+
+                while( arrCountry.get(lft).compareToIgnoreCase(strPivot) < 0 ){
+                    lft++;
+                }
+                while( arrCountry.get(rgt).compareToIgnoreCase(strPivot) > 0 ){
+                    rgt--;
+                }
+
+                if(lft <= rgt){
+                    strAux = arrName.get(lft);
+                    arrName.set(lft, arrName.get(rgt));
+                    arrName.set(rgt, strAux);
+
+                    intAux = arrAge.get(lft);
+                    arrAge.set(lft, arrAge.get(rgt));
+                    arrAge.set(rgt, intAux);
+
+                    strAux = arrCpf.get(lft);
+                    arrCpf.set(lft, arrCpf.get(rgt));
+                    arrCpf.set(rgt, strAux);
+
+                    strAux = arrCountry.get(lft);
+                    arrCountry.set(lft, arrCountry.get(rgt));
+                    arrCountry.set(rgt, strAux);
+
+                    byte[] byteAux = arrImageCountry.get(lft);
+                    arrImageCountry.set(lft, arrImageCountry.get(rgt));
+                    arrImageCountry.set(rgt, byteAux);
+
+                    lft++;
+                    rgt--;
+                }
+
+            }
+
+            if(rgt > left){
+                quickSort(arrName, arrAge, arrCpf, arrCountry, arrImageCountry, nopc, left, rgt);
+            }
+
+            if(lft < right){
+                quickSort(arrName, arrAge, arrCpf, arrCountry, arrImageCountry, nopc, lft, right);
+            }
+
+        } else if ( nopc == 4 ) {
+
+            intPivot = arrImageCountry.get((lft + rgt) / 2).length;
+
+            while ( lft <= rgt ) {
+
+                while( arrImageCountry.get(lft).length < intPivot ){
+                    lft++;
+                }
+                while( arrImageCountry.get(rgt).length > intPivot ){
+                    rgt--;
+                }
+
+                if(lft <= rgt){
+                    strAux = arrName.get(lft);
+                    arrName.set(lft, arrName.get(rgt));
+                    arrName.set(rgt, strAux);
+
+                    intAux = arrAge.get(lft);
+                    arrAge.set(lft, arrAge.get(rgt));
+                    arrAge.set(rgt, intAux);
+
+                    strAux = arrCpf.get(lft);
+                    arrCpf.set(lft, arrCpf.get(rgt));
+                    arrCpf.set(rgt, strAux);
+
+                    strAux = arrCountry.get(lft);
+                    arrCountry.set(lft, arrCountry.get(rgt));
+                    arrCountry.set(rgt, strAux);
+
+                    byte[] byteAux = arrImageCountry.get(lft);
+                    arrImageCountry.set(lft, arrImageCountry.get(rgt));
+                    arrImageCountry.set(rgt, byteAux);
+
+                    lft++;
+                    rgt--;
+                }
+
+            }
+
+            if(rgt > left){
+                quickSort(arrName, arrAge, arrCpf, arrCountry, arrImageCountry, nopc, left, rgt);
+            }
+
+            if(lft < right){
+                quickSort(arrName, arrAge, arrCpf, arrCountry, arrImageCountry, nopc, lft, right);
+            }
+
+        }
+        
+        
+
+        arr.add(arrName);
+        arr.add(arrAge);
+        arr.add(arrCpf);
+        arr.add(arrCountry);
+        arr.add(arrImageCountry);
+        
+        return arr;
+    }
+    
+    //=> Metodo responsavel por ordenar os arrays em arvore
+    public ArrayList<Object> tree(ArrayList<String> arrName, ArrayList<Integer> arrAge, ArrayList<String> arrCpf, ArrayList<String> arrCountry, ArrayList<byte[]> arrImageCountry, int opc){
+
+        TreeSort bin = TreeSort.getInstance();
+
+        bin.treeSort(arrName, arrAge, arrCpf, arrCountry, arrImageCountry, opc);
 
         ArrayList<Object> arr = bin.treeOrdered();
 
@@ -242,29 +512,26 @@ public class Ordena {
 
     }
 
-    public ArrayList<Object> quickSort(ArrayList<String> arrName, ArrayList<Integer> arrAge, ArrayList<String> arrCpf, ArrayList<String> arrCountry, ArrayList<byte[]> arrImageCountry, int opc){
-        return null;
-    }
+    //=> Metodo responsavel por buscar um elemento na arvore
+    public void searchInTree(String search, int opc, JFrame frame){
 
-    public void searchInTree(String search, int opc){
-
-        BinaryTreeSort bin = BinaryTreeSort.getInstance();
+        TreeSort bin = TreeSort.getInstance();
 
         try{
 
-            bin.search(BinaryTreeSort.nodeList.get(0), search, opc);
+            bin.search(TreeSort.nodeList.get(0), search, opc);
 
         }catch(NullPointerException e){
         
-            JOptionPane.showMessageDialog(null, search + " não encontrado");
+            JOptionPane.showMessageDialog(frame, search + " não encontrado");
         
         }
-        
         
     }
 
 }
 
+//=> Classe responsavel por criar a arvore binaria
 class TreeNode {
 
     String name;
@@ -272,8 +539,8 @@ class TreeNode {
     String cpf;
     String country;
     byte[] imageCountry;
-    TreeNode left;
-    TreeNode right;
+    TreeNode lft;
+    TreeNode rgt;
 
     public TreeNode(String name, Integer age, String cpf, String country, byte[] imageCountry) {
         this.name = name;
@@ -281,22 +548,23 @@ class TreeNode {
         this.cpf = cpf;
         this.country = country;
         this.imageCountry = imageCountry;
-        this.left = null;
-        this.right = null;
+        this.lft = null;
+        this.rgt = null;
     }
 }
 
-class BinaryTreeSort {
+//=> Classe responsavel por ordenar os arrays em arvore
+class TreeSort {
 
-    private static BinaryTreeSort instance;
+    private static TreeSort instance;
 
     public static ArrayList<TreeNode> nodeList = new ArrayList<>();
 
-    public void binaryTreeSort(ArrayList<String> arrName, ArrayList<Integer> arrAge, ArrayList<String> arrCpf, ArrayList<String> arrCountry, ArrayList<byte[]> arrImageCountry, int opc) {
+    public void treeSort(ArrayList<String> arrName, ArrayList<Integer> arrAge, ArrayList<String> arrCpf, ArrayList<String> arrCountry, ArrayList<byte[]> arrImageCountry, int opc) {
 
         nodeList.clear();
 
-        // Construa a árvore binária
+        //=> Inserindo os elementos na arvore
         for (int i = 0; i < arrName.size(); i++) {
             TreeNode node = new TreeNode(arrName.get(i), arrAge.get(i), arrCpf.get(i), arrCountry.get(i), arrImageCountry.get(i));
             insert(nodeList, node, opc);
@@ -304,21 +572,21 @@ class BinaryTreeSort {
         
     }
 
-
+    //=> Metodo responsavel por retornar os arrays ordenados
     public ArrayList<Object> treeOrdered(){
 
         ArrayList<Object> arr = new ArrayList<>();
-
         ArrayList<String> arrName = new ArrayList<>();
         ArrayList<Integer> arrAge = new ArrayList<>();
         ArrayList<String> arrCpf = new ArrayList<>();
         ArrayList<String> arrCountry = new ArrayList<>();
         ArrayList<byte[]> arrImageCountry = new ArrayList<>();
-
-        // Percorra a árvore na ordem desejada para obter os elementos ordenados
         ArrayList<TreeNode> sortedList = new ArrayList<>();
+
+        //=> Percorrendo a arvore em ordem e adicionando os elementos em uma lista
         inorderTraversal(nodeList.get(0), sortedList);
 
+        //=> Adicionando os elementos da lista ordenada nos arrays
         for (int i = 0; i < sortedList.size(); i++) {
             arrName.add(sortedList.get(i).name);
             arrAge.add(sortedList.get(i).age);
@@ -337,13 +605,16 @@ class BinaryTreeSort {
 
     }
 
+    //=> Metodo responsavel por inserir os elementos na arvore
     public static void insert(ArrayList<TreeNode> nodeList, TreeNode newNode, int opc) {
         
+        //=> Se a lista estiver vazia, insiro o novo no na lista
         if (nodeList.isEmpty()) {
             nodeList.add(newNode);
             return;
         }
 
+        //=> Pegando o primeiro elemento da lista
         TreeNode current = nodeList.get(0);
 
         while (true) {
@@ -351,80 +622,80 @@ class BinaryTreeSort {
             if(opc == 0){
 
                 if (newNode.name.compareToIgnoreCase(current.name) < 0) {
-                    if (current.left == null) {
-                        current.left = newNode;
+                    if (current.lft == null) {
+                        current.lft = newNode;
                         break;
                     }
-                    current = current.left;
+                    current = current.lft;
                 } else {
-                    if (current.right == null) {
-                        current.right = newNode;
+                    if (current.rgt == null) {
+                        current.rgt = newNode;
                         break;
                     }
-                    current = current.right;
+                    current = current.rgt;
                 }
             } else if(opc == 1){
 
                 if (newNode.age < current.age) {
-                    if (current.left == null) {
-                        current.left = newNode;
+                    if (current.lft == null) {
+                        current.lft = newNode;
                         break;
                     }
-                    current = current.left;
+                    current = current.lft;
                 } else {
-                    if (current.right == null) {
-                        current.right = newNode;
+                    if (current.rgt == null) {
+                        current.rgt = newNode;
                         break;
                     }
-                    current = current.right;
+                    current = current.rgt;
                 }
 
             } else if(opc == 2){
 
                 if (newNode.cpf.compareToIgnoreCase(current.cpf) < 0) {
-                    if (current.left == null) {
-                        current.left = newNode;
+                    if (current.lft == null) {
+                        current.lft = newNode;
                         break;
                     }
-                    current = current.left;
+                    current = current.lft;
                 } else {
-                    if (current.right == null) {
-                        current.right = newNode;
+                    if (current.rgt == null) {
+                        current.rgt = newNode;
                         break;
                     }
-                    current = current.right;
+                    current = current.rgt;
                 }
 
             } else if(opc == 3){
 
                 if (newNode.country.compareToIgnoreCase(current.country) < 0) {
-                    if (current.left == null) {
-                        current.left = newNode;
+                    if (current.lft == null) {
+                        current.lft = newNode;
                         break;
                     }
-                    current = current.left;
+                    current = current.lft;
                 } else {
-                    if (current.right == null) {
-                        current.right = newNode;
+                    if (current.rgt == null) {
+                        current.rgt = newNode;
                         break;
                     }
-                    current = current.right;
+                    current = current.rgt;
                 }
 
             } else if(opc == 4){
 
                 if (newNode.imageCountry.length < current.imageCountry.length) {
-                    if (current.left == null) {
-                        current.left = newNode;
+                    if (current.lft == null) {
+                        current.lft = newNode;
                         break;
                     }
-                    current = current.left;
+                    current = current.lft;
                 } else {
-                    if (current.right == null) {
-                        current.right = newNode;
+                    if (current.rgt == null) {
+                        current.rgt = newNode;
                         break;
                     }
-                    current = current.right;
+                    current = current.rgt;
                 }
 
             }
@@ -432,17 +703,17 @@ class BinaryTreeSort {
         }
     }
 
+    //=> Metodo responsavel por percorrer a arvore em ordem
     public static void inorderTraversal(TreeNode root, ArrayList<TreeNode> sortedList) {
 
-
-
         if (root != null) {
-            inorderTraversal(root.left, sortedList);
+            inorderTraversal(root.lft, sortedList);
             sortedList.add(root);
-            inorderTraversal(root.right, sortedList);
+            inorderTraversal(root.rgt, sortedList);
         }
     }
 
+    //=> Metodo responsavel por buscar um elemento na arvore
     public TreeNode search(TreeNode root, String key, int opc) {
 
         if(opc == 0){
@@ -453,10 +724,10 @@ class BinaryTreeSort {
             }
 
             if (key.compareToIgnoreCase(root.name) < 0) {
-                return search(root.left, key, 0);
+                return search(root.lft, key, 0);
             }
 
-            return search(root.right, key, 0);
+            return search(root.rgt, key, 0);
 
         }else if(opc == 1){
 
@@ -466,10 +737,10 @@ class BinaryTreeSort {
             }
 
             if (Integer.parseInt(key) < root.age) {
-                return search(root.left, key, 1);
+                return search(root.lft, key, 1);
             }
 
-            return search(root.right, key, 1);
+            return search(root.rgt, key, 1);
 
         }else if(opc == 2){
 
@@ -479,10 +750,10 @@ class BinaryTreeSort {
             }
 
             if (key.compareToIgnoreCase(root.cpf) < 0) {
-                return search(root.left, key, 2);
+                return search(root.lft, key, 2);
             }
 
-            return search(root.right, key, 2);
+            return search(root.rgt, key, 2);
 
         }else if(opc == 3){
 
@@ -492,10 +763,10 @@ class BinaryTreeSort {
             }
 
             if (key.compareToIgnoreCase(root.country) < 0) {
-                return search(root.left, key, 3);
+                return search(root.lft, key, 3);
             }
 
-            return search(root.right, key, 3);
+            return search(root.rgt, key, 3);
 
         }else if(opc == 4){
 
@@ -505,10 +776,10 @@ class BinaryTreeSort {
             }
 
             if (key.compareToIgnoreCase(root.imageCountry.toString()) < 0) {
-                return search(root.left, key, 4);
+                return search(root.lft, key, 4);
             }
 
-            return search(root.right, key, 4);
+            return search(root.rgt, key, 4);
 
         }
 
@@ -517,10 +788,10 @@ class BinaryTreeSort {
         
     }
 
-    //=> Metodo responsavel por retornar uma unica instancia da classe BinaryTreeSort
-    public static BinaryTreeSort getInstance() {
+    //=> Metodo responsavel por retornar uma unica instancia da classe TreeSort
+    public static TreeSort getInstance() {
         if (instance == null) {
-            instance = new BinaryTreeSort();
+            instance = new TreeSort();
         }
         return instance;
     }

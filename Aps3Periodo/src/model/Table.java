@@ -38,7 +38,7 @@ public class Table extends JTable {
 
         //=> Definindo o tamanho das minhas colunas 
         getColumnModel().getColumn(0).setPreferredWidth(15);
-        getColumnModel().getColumn(1).setPreferredWidth(2);
+        getColumnModel().getColumn(1).setPreferredWidth(3);
         getColumnModel().getColumn(2).setPreferredWidth(11);
         getColumnModel().getColumn(3).setPreferredWidth(15);
         getColumnModel().getColumn(4).setPreferredWidth(10);

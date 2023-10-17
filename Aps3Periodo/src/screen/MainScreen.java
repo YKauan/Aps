@@ -67,7 +67,7 @@ public class MainScreen {
     private JButton bSearch;
 
     private JRadioButton rBubbleSort;
-    private JRadioButton rBinaryTree;
+    private JRadioButton rTree;
     private JRadioButton rQuickSort;
     private JRadioButton rNameField;
     private JRadioButton rAgeField;
@@ -205,7 +205,7 @@ public class MainScreen {
         //=> Instanciando os componentes de radio
 
         rBubbleSort = new JRadioButton("Bolha");
-        rBinaryTree = new JRadioButton("Arvore Binaria");
+        rTree = new JRadioButton("Arvore Binaria");
         rQuickSort = new JRadioButton("Quick Sort");
         rBinarySearch = new JRadioButton("Busca Binaria");
         rLinearSearch = new JRadioButton("Busca Linear");
@@ -223,7 +223,7 @@ public class MainScreen {
         rNameField.setSelected(true);
 
         styles.styleRadButton(rBubbleSort);
-        styles.styleRadButton(rBinaryTree);
+        styles.styleRadButton(rTree);
         styles.styleRadButton(rQuickSort);
         styles.styleRadButton(rBinarySearch);
         styles.styleRadButton(rLinearSearch);
@@ -235,7 +235,7 @@ public class MainScreen {
         styles.styleRadButton(rCountryField);
         styles.styleRadButton(rImageCountryField);
 
-        rBinaryTree.addActionListener(e -> validateRadiosButton());
+        rTree.addActionListener(e -> validateRadiosButton());
         rBubbleSort.addActionListener(e -> validateRadiosButton());
 
         rSearchInTree.setEnabled(false);
@@ -248,7 +248,7 @@ public class MainScreen {
 
         //=> Adicionando os botoes ao grupo
         groupOrd.add(rBubbleSort);
-        groupOrd.add(rBinaryTree);
+        groupOrd.add(rTree);
         groupOrd.add(rQuickSort);
 
         groupLang.add(rJava);
@@ -308,7 +308,7 @@ public class MainScreen {
         menuPanel.add(bLoadData);
         menuPanel.add(bSearch);
         menuPanel.add(rBubbleSort);
-        menuPanel.add(rBinaryTree);
+        menuPanel.add(rTree);
         menuPanel.add(rQuickSort);
         menuPanel.add(rBinarySearch);
         menuPanel.add(rLinearSearch);
@@ -376,10 +376,10 @@ public class MainScreen {
 
         layout.putConstraint(SpringLayout.WEST  , rBubbleSort         , 030 , SpringLayout.WEST  , menuPanel);
         layout.putConstraint(SpringLayout.NORTH , rBubbleSort         , 100 , SpringLayout.NORTH , menuPanel);
-        layout.putConstraint(SpringLayout.WEST  , rBinaryTree         , 100 , SpringLayout.WEST  , menuPanel);
-        layout.putConstraint(SpringLayout.NORTH , rBinaryTree         , 100 , SpringLayout.NORTH , menuPanel);
-        layout.putConstraint(SpringLayout.WEST  , rQuickSort              , 237 , SpringLayout.WEST  , menuPanel);
-        layout.putConstraint(SpringLayout.NORTH , rQuickSort              , 100 , SpringLayout.NORTH , menuPanel);
+        layout.putConstraint(SpringLayout.WEST  , rTree               , 100 , SpringLayout.WEST  , menuPanel);
+        layout.putConstraint(SpringLayout.NORTH , rTree               , 100 , SpringLayout.NORTH , menuPanel);
+        layout.putConstraint(SpringLayout.WEST  , rQuickSort          , 237 , SpringLayout.WEST  , menuPanel);
+        layout.putConstraint(SpringLayout.NORTH , rQuickSort          , 100 , SpringLayout.NORTH , menuPanel);
         layout.putConstraint(SpringLayout.WEST  , rLinearSearch       , 030 , SpringLayout.WEST  , menuPanel);
         layout.putConstraint(SpringLayout.NORTH , rLinearSearch       , 170 , SpringLayout.NORTH , menuPanel);
         layout.putConstraint(SpringLayout.WEST  , rSearchInTree       , 280 , SpringLayout.WEST  , menuPanel);
@@ -425,19 +425,17 @@ public class MainScreen {
             endTime = System.nanoTime();                
 
             totalTimeJava = (endTime - startTime) / 1e9;
-            System.out.println(endTime);
-            System.out.println(startTime);
 
             lResultOrd1Java.setText(String.valueOf(totalTimeJava));
 
             isBinaryTree = false;
 
-        } else if(rBinaryTree.isSelected()){
+        } else if(rTree.isSelected()){
 
             validateOpc();
 
             startTime = System.nanoTime();
-            newArr = ordenaJava.binaryTree(arrName, arrAge, arrCpf, arrCountry, arrImageCountry, nopc);
+            newArr = ordenaJava.tree(arrName, arrAge, arrCpf, arrCountry, arrImageCountry, nopc);
             endTime = System.nanoTime();
 
             totalTimeJava = (endTime - startTime) / 1e9;
@@ -447,6 +445,16 @@ public class MainScreen {
             isBinaryTree = true;
 
         } else if(rQuickSort.isSelected()){
+
+            validateOpc();
+
+            startTime = System.nanoTime();
+            newArr =  ordenaJava.quickSort(arrName, arrAge, arrCpf, arrCountry, arrImageCountry, nopc, 0, arrName.size() - 1);
+            endTime = System.nanoTime();                
+
+            totalTimeJava = (endTime - startTime) / 1e9;
+
+            lResultOrd3Java.setText(String.valueOf(totalTimeJava));
 
             isBinaryTree = false;
 
@@ -483,16 +491,16 @@ public class MainScreen {
         if(rBinarySearch.isSelected()){
 
             startTime = System.nanoTime();
-            search.buscaBinaria(validadeArrSelectedField(), tfSearch.getText());
+            search.buscaBinaria(validadeArrSelectedField(), tfSearch.getText(), screen);
             endTime = System.nanoTime();
 
         } else if(rLinearSearch.isSelected()){
 
             startTime = System.nanoTime();
-            search.buscaLinear(validadeArrSelectedField(), tfSearch.getText());
+            search.buscaLinear(validadeArrSelectedField(), tfSearch.getText(), screen);
             endTime = System.nanoTime();
 
-        }else if(rBinaryTree.isSelected()){
+        }else if(rTree.isSelected()){
 
             if(!isBinaryTree){
                 JOptionPane.showMessageDialog(null, "É necessário ordenar por Arvore Binaria antes de realizar a busca na árvore!", "Busca na Árvore", JOptionPane.INFORMATION_MESSAGE);
@@ -501,7 +509,7 @@ public class MainScreen {
                 validateOpc();
 
                 startTime = System.nanoTime();
-                ordenaJava.searchInTree(tfSearch.getText(), nopc);
+                ordenaJava.searchInTree(tfSearch.getText(), nopc, screen);
                 endTime = System.nanoTime();
 
             }
@@ -666,7 +674,7 @@ public class MainScreen {
     //=> Metodo responsavel por validar os radios buttons
     public void validateRadiosButton(){
 
-        if(rBinaryTree.isSelected()){
+        if(rTree.isSelected()){
 
             rLinearSearch.setEnabled(false);
             rBinarySearch.setEnabled(false);

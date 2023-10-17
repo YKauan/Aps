@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -67,6 +68,7 @@ public class RegistrationScreen extends JDialog{
     private String currentCpf;
     private String currentCountry;
     private ImageIcon currentImage;
+    private ImageIcon bkpImage;
 
     private Styles styles;
 
@@ -82,6 +84,7 @@ public class RegistrationScreen extends JDialog{
         this.currentCpf     = currentCpf;
         this.currentCountry = currentCountry;
         this.currentImage   = currentImage;
+        this.bkpImage       = currentImage;
 
         isOpen = true;
 
@@ -290,7 +293,8 @@ public class RegistrationScreen extends JDialog{
             tCurrentAge.setText(currentAge);
             tCurrentCpf.setText(currentCpf);
             tCurrentCountry.setText(currentCountry);
-            lImage.setIcon(currentImage);
+
+            styles.styleImageLabel(lImage, currentImage);
             lImage.repaint();
 
             tNewName.setEditable(false);
@@ -314,7 +318,8 @@ public class RegistrationScreen extends JDialog{
             tCurrentAge.setText(currentAge);
             tCurrentCpf.setText(currentCpf);
             tCurrentCountry.setText(currentCountry);
-            lImage.setIcon(currentImage);
+
+            styles.styleImageLabel(lImage, bkpImage);
             lImage.repaint();
 
             tNewName.setText("");
@@ -339,7 +344,7 @@ public class RegistrationScreen extends JDialog{
 
     //=> Metodo responsavel por alterar os dados do jogador
     public void alter(ImageIcon image){
-
+           
         try {
             apsDAO.modifyData(2,tCurrentName.getText(), Integer.parseInt(tCurrentAge.getText()), tCurrentCpf.getText(), tCurrentCountry.getText(), convertImageToByte(image));
         } catch (SQLException e) {
@@ -388,22 +393,38 @@ public class RegistrationScreen extends JDialog{
     public void saveButtonAction(){
 
         if(rbAlter.isSelected()){
-            alter(currentImage);
+            if(tCurrentName.getText().equals("") || tCurrentAge.getText().equals("") || tCurrentCpf.getText().equals("") || tCurrentCountry.getText().equals("")){
+                JOptionPane.showMessageDialog(screen, "Preencha todos os campos");
+            } else {
+                alter(currentImage);
+                closingScreen();
+            }
         }else if(rbInsert.isSelected()){
-            insert(currentImage);
+            if(tNewName.getText().equals("") || tNewAge.getText().equals("") || tNewCpf.getText().equals("") || tNewCountry.getText().equals("")){
+                JOptionPane.showMessageDialog(screen, "Preencha todos os campos");
+            } else {
+                insert(currentImage);
+                closingScreen();
+            }
         }else {
             delete(currentImage);
+            closingScreen();
         }
 
-        screen.dispose();
+        isOpen = false;
 
+    }
+
+    public void closingScreen(){
+        MainScreen.getInstance().loadDataButtonAction();
+        screen.dispose();
     }
 
     //=> Metodo responsavel por carregar a nova imagem
     public ImageIcon loadImage(){
 
         JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & PNG Images", "jpg", "png");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & PNG Imagens", "jpg", "png");
         chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(screen);
 

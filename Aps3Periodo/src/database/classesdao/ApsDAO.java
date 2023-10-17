@@ -45,6 +45,12 @@ public class ApsDAO {
     public void searchValues(int type) throws SQLDataException {
 
         //=> Montando a minha Query/Consulta
+
+        nameArr.clear();
+        ageArr.clear();
+        cpfArr.clear();
+        countryArr.clear();
+        imageCountryArr.clear();
         
         if (type == 1) {
 

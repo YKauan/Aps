@@ -10,7 +10,7 @@ connection = mysql.connector.connect(
     host="LocalHost",
     user="root",
     password="kauan123",
-    database="apsproject2"
+    database="apsproject4"
 )
 
 cursor = connection.cursor()
@@ -19,7 +19,7 @@ cursor = connection.cursor()
 fake = Faker()
 
 # Loop para inserir registros fictícios na tabela
-for _ in range(10):
+for _ in range(50000):
     nome = fake.name()
     idade = fake.random_int(min=1, max=99)
     cpf = fake.unique.random_int(min=10000000000, max=99999999999)

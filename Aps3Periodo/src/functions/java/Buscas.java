@@ -2,6 +2,7 @@ package src.functions.java;
 
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class Buscas {
@@ -10,7 +11,7 @@ public class Buscas {
 
     private int index;
 
-    public void buscaLinear(ArrayList<?> arr, String value){
+    public void buscaLinear(ArrayList<?> arr, String value, JFrame frame){
 
         for (int i = 0; i < arr.size(); i++) {
             
@@ -23,13 +24,13 @@ public class Buscas {
         }
 
         if(found != null){
-            JOptionPane.showMessageDialog(null, "Encontrado: " + found + " na posição: " + index);
+            JOptionPane.showMessageDialog(frame, "Encontrado: " + found + " na posição: " + index);
         }else{
-            JOptionPane.showMessageDialog(null, value + " Não encontrado");
+            JOptionPane.showMessageDialog(frame, "Valor: " + value + " não encontrado");
         }
-    }
+    }   
 
-    public void buscaBinaria(ArrayList<?> arr, String value){
+    public void buscaBinaria(ArrayList<?> arr, String value, JFrame frame){
 
         int inicio = 0, fim = arr.size()-1;
         
@@ -56,9 +57,9 @@ public class Buscas {
         }
         
         if(found != null){
-            JOptionPane.showMessageDialog(null, "Encontrado: " + found + " na posição: " + index);
+            JOptionPane.showMessageDialog(frame, "Encontrado: " + found + " na posição: " + index);
         }else{
-            JOptionPane.showMessageDialog(null, value + " Não encontrado");
+            JOptionPane.showMessageDialog(frame, "Valor: "+ value + " não encontrado!\nVerifique se a lista está ordenada, pela colula selecionada!");
         }
     }
 

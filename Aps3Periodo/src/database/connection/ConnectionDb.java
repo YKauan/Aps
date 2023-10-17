@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class ConnectionDb {
 
-    private final String URL  = "jdbc:mysql://localhost:3306/apsproject2";
+    private final String URL  = "jdbc:mysql://localhost:3306/apsproject";
     private final String USER = "root";
     private final String PWD  = "kauan123";
 
@@ -47,7 +47,7 @@ public class ConnectionDb {
             }
 
         } catch (SQLException e) {
-           System.out.println("Nao foi possivel encerrar a conexao com o banco de daods!");
+           System.out.println("Nao foi possivel encerrar a conexao com o banco de dados!");
         }
        
 
