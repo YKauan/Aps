@@ -242,7 +242,7 @@ public class Ordena {
 
     }
 
-    public ArrayList<Object> pilha(ArrayList<String> arrName, ArrayList<Integer> arrAge, ArrayList<String> arrCpf, ArrayList<String> arrCountry, ArrayList<byte[]> arrImageCountry, int opc){
+    public ArrayList<Object> quickSort(ArrayList<String> arrName, ArrayList<Integer> arrAge, ArrayList<String> arrCpf, ArrayList<String> arrCountry, ArrayList<byte[]> arrImageCountry, int opc){
         return null;
     }
 
@@ -524,22 +524,5 @@ class BinaryTreeSort {
         }
         return instance;
     }
-
-}
-
-class Pilha {
-
-    int tamanho;
-    int topo;
-    ArrayList<String> arrName;
-    ArrayList<Integer> arrAge;
-    ArrayList<String> arrCpf;
-    ArrayList<String> arrCountry;
-    ArrayList<byte[]> arrImageCountry;
-
-    Pilha(int tam) {
-        topo = tam;
-        tamanho = tam;
-    } 
 
 }

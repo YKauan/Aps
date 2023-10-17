@@ -68,7 +68,7 @@ public class MainScreen {
 
     private JRadioButton rBubbleSort;
     private JRadioButton rBinaryTree;
-    private JRadioButton rPilha;
+    private JRadioButton rQuickSort;
     private JRadioButton rNameField;
     private JRadioButton rAgeField;
     private JRadioButton rCpfField;
@@ -148,7 +148,7 @@ public class MainScreen {
         lTextOrd2 = new JLabel("Arvore Binaria");
         lTextOrd2.setForeground(purple);
 
-        lTextOrd3 = new JLabel("Pilha");
+        lTextOrd3 = new JLabel("Quick Sort");
         lTextOrd3.setForeground(purple);
 
         lResultOrd1Java = new JLabel("0.0");  
@@ -206,7 +206,7 @@ public class MainScreen {
 
         rBubbleSort = new JRadioButton("Bolha");
         rBinaryTree = new JRadioButton("Arvore Binaria");
-        rPilha = new JRadioButton("Pilha");
+        rQuickSort = new JRadioButton("Quick Sort");
         rBinarySearch = new JRadioButton("Busca Binaria");
         rLinearSearch = new JRadioButton("Busca Linear");
         rSearchInTree = new JRadioButton("Busca na Arvore");
@@ -224,7 +224,7 @@ public class MainScreen {
 
         styles.styleRadButton(rBubbleSort);
         styles.styleRadButton(rBinaryTree);
-        styles.styleRadButton(rPilha);
+        styles.styleRadButton(rQuickSort);
         styles.styleRadButton(rBinarySearch);
         styles.styleRadButton(rLinearSearch);
         styles.styleRadButton(rSearchInTree);
@@ -249,7 +249,7 @@ public class MainScreen {
         //=> Adicionando os botoes ao grupo
         groupOrd.add(rBubbleSort);
         groupOrd.add(rBinaryTree);
-        groupOrd.add(rPilha);
+        groupOrd.add(rQuickSort);
 
         groupLang.add(rJava);
 
@@ -309,7 +309,7 @@ public class MainScreen {
         menuPanel.add(bSearch);
         menuPanel.add(rBubbleSort);
         menuPanel.add(rBinaryTree);
-        menuPanel.add(rPilha);
+        menuPanel.add(rQuickSort);
         menuPanel.add(rBinarySearch);
         menuPanel.add(rLinearSearch);
         menuPanel.add(rSearchInTree);
@@ -378,8 +378,8 @@ public class MainScreen {
         layout.putConstraint(SpringLayout.NORTH , rBubbleSort         , 100 , SpringLayout.NORTH , menuPanel);
         layout.putConstraint(SpringLayout.WEST  , rBinaryTree         , 100 , SpringLayout.WEST  , menuPanel);
         layout.putConstraint(SpringLayout.NORTH , rBinaryTree         , 100 , SpringLayout.NORTH , menuPanel);
-        layout.putConstraint(SpringLayout.WEST  , rPilha              , 237 , SpringLayout.WEST  , menuPanel);
-        layout.putConstraint(SpringLayout.NORTH , rPilha              , 100 , SpringLayout.NORTH , menuPanel);
+        layout.putConstraint(SpringLayout.WEST  , rQuickSort              , 237 , SpringLayout.WEST  , menuPanel);
+        layout.putConstraint(SpringLayout.NORTH , rQuickSort              , 100 , SpringLayout.NORTH , menuPanel);
         layout.putConstraint(SpringLayout.WEST  , rLinearSearch       , 030 , SpringLayout.WEST  , menuPanel);
         layout.putConstraint(SpringLayout.NORTH , rLinearSearch       , 170 , SpringLayout.NORTH , menuPanel);
         layout.putConstraint(SpringLayout.WEST  , rSearchInTree       , 280 , SpringLayout.WEST  , menuPanel);
@@ -446,7 +446,7 @@ public class MainScreen {
 
             isBinaryTree = true;
 
-        } else if(rPilha.isSelected()){
+        } else if(rQuickSort.isSelected()){
 
             isBinaryTree = false;
 
