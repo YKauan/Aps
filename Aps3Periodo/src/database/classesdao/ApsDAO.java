@@ -172,42 +172,40 @@ public class ApsDAO {
 
     }
 
-
-    //=> Metodo responsavel por retornar o meu array contendo o tipo da corrida
+    //=> Metodo responsavel por retornar o meu array contendo os nomes
     public ArrayList<String> getName(){
 
         return nameArr;
 
     }
 
-    //=> Metodo responsavel por retornar o meu array contendo o codigo da corrida
+    //=> Metodo responsavel por retornar o meu array contendo as idades
     public ArrayList<Integer> getAge(){
 
         return ageArr;
 
     }
 
-    //=> Metodo responsavel por retornar o meu array contendo os Jogadores da corrida
+    //=> Metodo responsavel por retornar o meu array contendo os cpfs
     public ArrayList<String> getCpf(){
 
         return cpfArr;
 
     }
 
-    //=> Metodo responsavel por retornar o meu array contendo as Equipes da corrida
+    //=> Metodo responsavel por retornar o meu array contendo os paises
     public ArrayList<String> getCountry(){
 
         return countryArr;
 
     }
 
-    //=> Metodo responsavel por retornar o meu array contendo o tempo da Volta 1 de cada jogador
+    //=> Metodo responsavel por retornar o meu array contendo as imagens
     public ArrayList<byte[]> getImageCountry(){
 
         return imageCountryArr;
 
     }
-
 
     //=> Metodo responsavel por limpar o meu ArrayList
     public ArrayList<String> clearArraysList(ArrayList<String> array){
