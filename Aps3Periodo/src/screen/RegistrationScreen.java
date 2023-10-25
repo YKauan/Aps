@@ -429,11 +429,20 @@ public class RegistrationScreen extends JDialog{
         int returnVal = chooser.showOpenDialog(screen);
 
         if(returnVal == JFileChooser.APPROVE_OPTION) {
-            ImageIcon imgIcon = new ImageIcon(chooser.getSelectedFile().getAbsolutePath());
-            styles.styleImageLabel(lImage, imgIcon);
-            lImage.repaint();
-            currentImage = imgIcon;
-            return imgIcon;
+            
+            String selectedFilePath = chooser.getSelectedFile().getAbsolutePath();
+
+            if(selectedFilePath.toLowerCase().endsWith(".jpg") || selectedFilePath.toLowerCase().endsWith(".png")) {
+
+                ImageIcon imgIcon = new ImageIcon(selectedFilePath);
+                styles.styleImageLabel(lImage, imgIcon);
+                lImage.repaint();
+                currentImage = imgIcon;
+                return imgIcon;
+
+            } else {
+                JOptionPane.showMessageDialog(screen, "Selecione um arquivo de imagem válido", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
         }
 
         return null;

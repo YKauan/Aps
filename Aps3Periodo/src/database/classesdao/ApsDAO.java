@@ -172,7 +172,6 @@ public class ApsDAO {
 
     }
 
-
     //=> Metodo responsavel por retornar o meu array contendo o tipo da corrida
     public ArrayList<String> getName(){
 
@@ -207,7 +206,6 @@ public class ApsDAO {
         return imageCountryArr;
 
     }
-
 
     //=> Metodo responsavel por limpar o meu ArrayList
     public ArrayList<String> clearArraysList(ArrayList<String> array){
