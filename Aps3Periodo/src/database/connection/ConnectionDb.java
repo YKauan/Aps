@@ -8,9 +8,9 @@ import java.sql.SQLException;
 
 public class ConnectionDb {
 
-    private final String URL  = "jdbc:mysql://localhost:3306/apsproject";
+    private final String URL  = "jdbc:mysql://localhost:3306/aps";
     private final String USER = "root";
-    private final String PWD  = "kauan123";
+    private final String PWD  = "kauan#157";
 
     private Connection conn = null;
     private PreparedStatement ps = null;

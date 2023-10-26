@@ -237,6 +237,7 @@ public class MainScreen {
 
         rTree.addActionListener(e -> validateRadiosButton());
         rBubbleSort.addActionListener(e -> validateRadiosButton());
+        rQuickSort.addActionListener(e -> validateRadiosButton());
 
         rSearchInTree.setEnabled(false);
 
@@ -593,11 +594,11 @@ public class MainScreen {
         Double result2BuscJava =   Double.parseDouble(lResultBusc2Java.getText());
         Double result3BuscJava =   Double.parseDouble(lResultBusc3Java.getText());
 
-        if(result1Java > result2Java && result1Java > result3Java){
+        if(result1Java < result2Java && result1Java < result3Java){
 
             lResultOrd1Java.setForeground(Color.GREEN);
 
-            if(result2Java > result3Java){
+            if(result2Java < result3Java){
                 lResultOrd2Java.setForeground(Color.YELLOW);
                 lResultOrd3Java.setForeground(Color.RED);
             } else {
@@ -605,11 +606,11 @@ public class MainScreen {
                 lResultOrd3Java.setForeground(Color.YELLOW);
             }
 
-        } else if (result2Java > result1Java && result2Java > result3Java){
+        } else if (result2Java < result1Java && result2Java < result3Java){
 
             lResultOrd2Java.setForeground(Color.GREEN);
 
-            if(result1Java > result3Java){
+            if(result1Java < result3Java){
                 lResultOrd1Java.setForeground(Color.YELLOW);
                 lResultOrd3Java.setForeground(Color.RED);
             } else {
@@ -621,7 +622,7 @@ public class MainScreen {
 
             lResultOrd3Java.setForeground(Color.GREEN);
 
-            if(result1Java > result2Java){
+            if(result1Java < result2Java){
                 lResultOrd1Java.setForeground(Color.YELLOW);
                 lResultOrd2Java.setForeground(Color.RED);
             } else {
@@ -631,11 +632,11 @@ public class MainScreen {
 
         }
 
-        if(result1BuscJava > result2BuscJava && result1BuscJava > result3BuscJava){
+        if(result1BuscJava < result2BuscJava && result1BuscJava < result3BuscJava){
 
             lResultBusc1Java.setForeground(Color.GREEN);
 
-            if(result2BuscJava > result3BuscJava){
+            if(result2BuscJava < result3BuscJava){
                 lResultBusc2Java.setForeground(Color.YELLOW);
                 lResultBusc3Java.setForeground(Color.RED);
             } else {
@@ -643,11 +644,11 @@ public class MainScreen {
                 lResultBusc3Java.setForeground(Color.YELLOW);
             }
 
-        } else if (result2BuscJava > result1BuscJava && result2BuscJava > result3BuscJava){
+        } else if (result2BuscJava < result1BuscJava && result2BuscJava < result3BuscJava){
 
             lResultBusc2Java.setForeground(Color.GREEN);
 
-            if(result1BuscJava > result3BuscJava){
+            if(result1BuscJava < result3BuscJava){
                 lResultBusc1Java.setForeground(Color.YELLOW);
                 lResultBusc3Java.setForeground(Color.RED);
             } else {
@@ -659,7 +660,7 @@ public class MainScreen {
             
             lResultBusc3Java.setForeground(Color.GREEN);
 
-            if(result1BuscJava > result2BuscJava){
+            if(result1BuscJava < result2BuscJava){
                 lResultBusc1Java.setForeground(Color.YELLOW);
                 lResultBusc2Java.setForeground(Color.RED);
             } else {
